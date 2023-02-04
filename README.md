@@ -45,7 +45,7 @@ In the end, your app will look something like:
 
 ## DEFINITION OF DONE
 Once you have completed all the technical requirments, you should complete the following:
-- [README Requirements](https://github.com/orgs/nss-evening-web-development/discussions/13)
+- [README Requirements](https://github.c0om/orgs/nss-evening-web-development/discussions/13)
 - **RECOMMENDED** Loom Video: [Sign up for Loom](https://www.loom.com/signup) and record a video of you walking through your app 
 
 ## Expel Button Hints

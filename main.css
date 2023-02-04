@@ -1,0 +1,23 @@
+.intro-card{
+  justify-content: center;
+  text-align: center;
+};
+
+.buttons{
+  display: flex;
+  justify-content: center;
+};
+
+#studnetCards{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  max-width: 500px;
+  
+}
+#voldCards{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  
+}
