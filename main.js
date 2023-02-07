@@ -65,6 +65,8 @@ const formOnDom = () => {
   <input type="text" class="form-control" id="inputName" placeholder="Your Name here">
   <label form="favoritespell" class="sr-only">Favorite Spell: </label>
   <input type="text" class="form-control" id="inputSpell" placeholder="Favorite Spell">
+  <label for="studentImage" class="sr-only">Your image link: </label>
+  <input type="text" class="form-control" id="inputLink" placeholder="Your Link here">
 </form>
 </div>
 <button id="btnShowCards" class="btn btn-primary">Submit</button>`;
@@ -75,6 +77,10 @@ rendertoDom('#formContent', headerOnDom);
 const toggleForm = document.querySelector('#showFormBtn');
 toggleForm.addEventListener('click', () => {
     formOnDom();
+    document
+    .querySelector("#btnShowCards")
+    .addEventListener("click", loadCards);
+const movingStudentCard = document.querySelector('#studentCards').addEventListener('click', expelledStudent);
 });
 
 const cardsOnDom = (array) => {
@@ -107,21 +113,38 @@ const voldOnDom = (array) => {
     rendertoDom('#voldCards', voldString)
   };
   
-const studentName = document.getElementById('#inputName');
-const favoriteSpell = document.getElementById('inputSpell');
+//const studentName = document.getElementById('#inputName');
+//const favoriteSpell = document.getElementById('inputSpell');
 
-const loadCards = document.querySelector('#btnShowCards');
- loadCards.addEventListener('click', () =>{
-    if(studentName === null){
-      alert('Please fill out name.');
+const newStudent = (e) => {
+  event.preventDefault();
+
+  const newStudentObj = {
+    id: student.length + 1,
+    name: document.querySelector('#inputName').value,
+    favoriteSpell: document.querySelector('#inputSpell').value,
+    imageUrl: document.querySelector('#inputLink').value,
+    house: houseFunction
+  }
+  student.push(newStudentObj);
+  cardsOnDom(student);
+  form.reset();
+};
+
+const loadCards = () =>{
+  var studentName = document.querySelector('#inputName').value;
+  var studentSpell = document.querySelector('#inputSpell').value;
+  var studentLink = document.querySelector('#inputLink').value;
+    if(studentName === null || studentSpell === null || studentLink === null){
+      alert('Please fill out the form.');
       return false;
     }
-    else{
-      cardsOnDom();
+    else {
+      newStudent();
       voldOnDom();
     }
    
-  });
+  };
 
 const houseFilter = (studentArray, houseType) =>{
   const filterArray = []; 
@@ -132,12 +155,15 @@ const houseFilter = (studentArray, houseType) =>{
   };
   return filterArray;
 };
-
+const showAllBtn = document.querySelector('#allHouse-btn');
 const showHufflepuffBtn = document.querySelector('#hufflepuff-btn');
 const showGryffindorBtn = document.querySelector('#gryffindor-btn');
 const showRavenclawBtn = document.querySelector('#ravenclaw-btn');
 const showSlytherinBtn = document.querySelector('#slytherin-btn');
 
+showAllBtn.addEventListener('click', () => {
+  cardsOnDom(student);
+});
 showHufflepuffBtn.addEventListener('click', () =>{
   const huffleButton = houseFilter( student, 'Hufflepuff');
   cardsOnDom(huffleButton);
@@ -175,41 +201,23 @@ const houseAssign = () => {
 
 let houseFunction = houseAssign();
 
-const newStudent = (e) => {
-  e.preventDefault();
 
-  const newStudentObj = {
-    id: student.length + 1,
-    name: document.querySelector('#inputName').value,
-    favoriteSpell: document.querySelector('#inputSpell').value,
-    house: houseFunction
-  }
-  student.push(newStudentObj);
-  cardsOnDom(student);
-  form.reset();
-};
+//const clickMeButton = document.querySelector('#btnShowCards');
+//clickMeButton.addEventListener('click', (newStudent));
 
-const clickMeButton = document.querySelector('#btnShowCards');
-clickMeButton.addEventListener('click', (newStudent));
+//const movingStudentCard = document.querySelector('#studentCards').addEventListener('click', expelledStudent);
 
-const expelFunction = () =>{
-  for(var i = 0; i < student.length; i++) {
-    voldArmy.push(student[i]);
-    student.splice(i, 1);
-    i--;
-  }
-};
 
-const movingStudentCard = document.querySelector('#studentCards');
-
-movingStudentCard.addEventListener('click', (event) =>{
+const expelledStudent = (event) =>{
   if(event.target.id.includes('expel')){
-     cont[, studentsId] - event.target.id.split("--");
-     const studentIndex = student.findIndex((member) => 
-    studentsId === student.id);
-     const expelledStudent = student.splice (studentIndex, 1)
+     const[, studentsId] = event.target.id.split("--");
+     const studentIndex = student.findIndex(
+      (stu) => Number(stuId) === stu.id);
+     const expelledStudent = student.splice (studentIndex, 1);
+     voldArmy.push(expelledStudent);
+
+
     }
+    voldOnDom(expelledStudent);
     cardsOnDom(student);
-    cardsOnDom(voldArmy);
   }
-);
